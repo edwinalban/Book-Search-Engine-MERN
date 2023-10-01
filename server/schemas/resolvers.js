@@ -40,9 +40,9 @@ const resolvers = {
         },
         saveBook: async (parent, { bookData }, context) => {
             if (context.user) {
-                    const user = await User.findOne({ _id: context.user.id });
+                    const user = await User.findOne({ _id: context.user._id });
 
-                    user.savedBooks.push({ bookData });
+                    user.savedBooks.push(bookData);
                     user.save();
                     return user;
             }
@@ -50,9 +50,9 @@ const resolvers = {
         },
         removeBook: async (parent, { bookId }, context) => {
             if (context.user) {
-                    const user = await User.findOne({ _id: context.user.id });
-
-                    user.savedBooks.pull({ bookId });
+                    const user = await User.findOne({ _id: context.user._id });
+                    console.log(user.savedBooks.bookId);
+                    user.savedBooks.pull(bookId);
                     user.save();
                     return user;
             }
