@@ -17,7 +17,6 @@ const resolvers = {
     },
     Mutation: {
         login: async (parent, { email, password }) => {
-            try {
                 const user = await User.findOne({ email });
 
                 if (!user) {
@@ -32,45 +31,30 @@ const resolvers = {
 
                 const token = signToken(user);
                 return { token, user };
-            } catch (e) {
-                console.log(e);
-            }
         },
         addUser: async (parent, args) => {
-            try {
                 const user = await User.create(args);
                 const token = signToken(user);
 
                 return { token, user };
-            } catch (e) {
-                console.log(e);
-            }
         },
         saveBook: async (parent, { bookData }, context) => {
             if (context.user) {
-                try {
                     const user = await User.findOne({ _id: context.user.id });
 
                     user.savedBooks.push({ bookData });
                     user.save();
                     return user;
-                } catch (e) {
-                    console.log(e);
-                }
             }
             throw new AuthenticationError('You are not logged in.');
         },
         removeBook: async (parent, { bookId }, context) => {
             if (context.user) {
-                try {
                     const user = await User.findOne({ _id: context.user.id });
 
                     user.savedBooks.pull({ bookId });
                     user.save();
                     return user;
-                } catch (e) {
-                    console.log(e);
-                }
             }
             throw new AuthenticationError('You are not logged in.')
         }
