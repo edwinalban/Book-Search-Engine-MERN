@@ -12,7 +12,7 @@ const SignupForm = () => {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
-
+  // allow signupForm to use ADD_USER mutation
   const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
@@ -30,6 +30,7 @@ const SignupForm = () => {
       event.stopPropagation();
     }
 
+    // use addUser mutation to update database with new user
     try {
       const { data } = await addUser({
         variables: { ...userFormData }

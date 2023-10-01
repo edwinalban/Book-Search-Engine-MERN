@@ -13,10 +13,13 @@ import { GET_ME } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 const SavedBooks = () => {
+  // allow savedBooks to use GET_ME query
   const { loading, data } = useQuery(GET_ME);
 
+  // allow saveBooks to use REMOVE_BOOK mutation
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
+  // check for query data for logged in user
   const userData = data?.me || {};
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
@@ -27,6 +30,7 @@ const SavedBooks = () => {
       return false;
     }
 
+    // uses removeBook mutation to remove book from users savedBooks array
     try {
       await removeBook({
         variables: {
@@ -41,7 +45,7 @@ const SavedBooks = () => {
     }
   };
 
-  // if data isn't here yet, say so
+  // if data still loading, display LOADING
   if (loading) {
     return <h2>LOADING...</h2>;
   }
