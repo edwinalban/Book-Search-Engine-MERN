@@ -25,6 +25,7 @@ You can click the Login/Sign Up link in the upper-right corner of the navbar and
 
 In order to view the application, click the link below.
 
+https://sleepy-coast-57485-e5ebee6e01e1.herokuapp.com/
 
 
 ![alt text](client/public/assets/images/books-search-screenshot.png)
